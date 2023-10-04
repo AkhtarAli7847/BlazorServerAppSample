@@ -1,4 +1,4 @@
-﻿@page "/Emp";
+﻿@page "/emp/{id?}";
 @inject Services.EmployeeService EmpService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager Navigation
@@ -73,10 +73,10 @@ else
     private bool IsLastPage => currentPage == totalPages;
 
     private int totalPages => (int)Math.Ceiling((double)totalItems / itemsPerPage);
-    
+
     private void GoToPreviousPage()
     {
-    
+
         if (!IsFirstPage)
         {
             currentPage--;
@@ -98,9 +98,12 @@ else
             .Skip((currentPage - 1) * itemsPerPage)
             .Take(itemsPerPage);
     }
+    [Parameter]
+    public string id { get; set; }
     protected override void OnInitialized()
     {
         // Load tasks when the page is initialized
+        int? ids =Convert.ToInt32(id);
         employee = EmpService.GetEmployee();
         totalItems = employee.Count;
         employeeToDisplay = employee.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);

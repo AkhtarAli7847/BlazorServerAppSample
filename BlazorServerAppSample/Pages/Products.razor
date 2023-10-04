@@ -99,7 +99,8 @@ else
     }
     private void ViewEmployee()
     {
-        Navigation.NavigateTo("/emp");
+        int? id = 3;
+        Navigation.NavigateTo($"/emp/{id}");
     }
     protected override void OnInitialized()
     {
